@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import TodoInput from "../components/TodoInput";
+import TodoList from "../components/TodoList";
 import { main } from "../styles/theme";
 
 const Home = () => {
@@ -7,6 +9,8 @@ const Home = () => {
     <HomeContainer>
       <div className="entireContainer">
         <h1>TodoList</h1>
+        <TodoInput />
+        <TodoList />
       </div>
     </HomeContainer>
   );

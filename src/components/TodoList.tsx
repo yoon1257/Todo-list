@@ -12,6 +12,15 @@ const TodoList: React.FC = () => {
   };
   //filter 함수를 사용해서 삭제기능을 구현
 
+  const onComplete = (id: number): void => {
+    setTodos(
+      todos.map((todo: ITodoTypes) => {
+        return todo.id === id
+          ? { ...todo, isCompleted: !todo.isCompleted }
+          : todo;
+      })
+    );
+  };
   return (
     <TodoListContainer>
       {todos.length > 0 ? (
@@ -26,6 +35,7 @@ const TodoList: React.FC = () => {
               todos={todos}
               setTodos={setTodos}
               onDelete={onDelete}
+              onComplete={onComplete}
             />
           );
         })

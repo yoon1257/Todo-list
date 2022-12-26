@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, KeyboardEvent } from "react";
+import React, { ChangeEvent, useCallback } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { inputState, ITodoTypes, todoState } from "../atom";
@@ -11,7 +11,7 @@ const TodoInput: React.FC = () => {
   const onAdd = useCallback((): void => {
     if (!contents.trim()) {
       return;
-    }
+    } // 빈값을 넣는 것을 막는 것
     const nextId: number =
       todos.length > 0 ? todos[todos.length - 1].id + 1 : 0;
 
@@ -29,27 +29,20 @@ const TodoInput: React.FC = () => {
     setContents(e.target.value);
   };
 
-  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
-    if (e.key === "Enter") {
-      onAdd();
-    }
-  };
-
   return (
-    <TodoInputContainer>
+    <TodoInputContainer onSubmit={(e) => e.preventDefault()}>
       <input
         type="text"
         placeholder="할일을 입력해주세요"
         value={contents}
         onChange={onChange}
-        onKeyDown={onKeyDown}
       />
       <button onClick={onAdd}>+</button>
     </TodoInputContainer>
   );
 };
 
-const TodoInputContainer = styled.div`
+const TodoInputContainer = styled.form`
   border-bottom: 1px solid ${main};
   padding: 15px;
   width: 100%;

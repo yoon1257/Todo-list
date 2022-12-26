@@ -13,6 +13,7 @@ interface TodoListItemProps {
   todos: ITodoTypes[];
   setTodos: SetterOrUpdater<ITodoTypes[]>;
   onDelete: (id: number) => void;
+  onComplete: (id: number) => void;
 }
 const TodoListItem: React.FC<TodoListItemProps> = ({
   id,
@@ -21,12 +22,20 @@ const TodoListItem: React.FC<TodoListItemProps> = ({
   todos,
   setTodos,
   onDelete,
+  onComplete,
 }) => {
   return (
     <TodoListItemContainer>
       <div>
-        <input type="checkbox" />
-        <span>{contents}</span>
+        <div
+          title={contents}
+          className={isCompleted ? "completed " : ""}
+          onClick={() => {
+            onComplete(id);
+          }}
+        >
+          {contents}
+        </div>
       </div>
       <div>
         <button>
@@ -65,6 +74,10 @@ const TodoListItemContainer = styled.div`
         inset 0.3rem 0.4rem 0.8rem #bec5d0;
       cursor: pointer;
     }
+  }
+  .completed {
+    text-decoration: line-through;
+    cursor: pointer;
   }
 `;
 export default TodoListItem;

@@ -12,6 +12,7 @@ interface TodoListItemProps {
   isCompleted: boolean;
   todos: ITodoTypes[];
   setTodos: SetterOrUpdater<ITodoTypes[]>;
+  onDelete: (id: number) => void;
 }
 const TodoListItem: React.FC<TodoListItemProps> = ({
   id,
@@ -19,6 +20,7 @@ const TodoListItem: React.FC<TodoListItemProps> = ({
   isCompleted,
   todos,
   setTodos,
+  onDelete,
 }) => {
   return (
     <TodoListItemContainer>
@@ -31,7 +33,11 @@ const TodoListItem: React.FC<TodoListItemProps> = ({
           <BsFillPencilFill />
         </button>
         <button>
-          <BsFillTrashFill />
+          <BsFillTrashFill
+            onClick={() => {
+              onDelete(id);
+            }}
+          />
         </button>
       </div>
     </TodoListItemContainer>

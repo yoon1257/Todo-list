@@ -7,6 +7,11 @@ import TodoListItem from "./TodoListItem";
 const TodoList: React.FC = () => {
   const [todos, setTodos] = useRecoilState<ITodoTypes[]>(todoState);
 
+  const onDelete = (id: number) => {
+    setTodos(todos.filter((todo: ITodoTypes) => todo.id !== id));
+  };
+  //filter 함수를 사용해서 삭제기능을 구현
+
   return (
     <TodoListContainer>
       {todos.length > 0 ? (
@@ -20,6 +25,7 @@ const TodoList: React.FC = () => {
               isCompleted={isCompleted}
               todos={todos}
               setTodos={setTodos}
+              onDelete={onDelete}
             />
           );
         })

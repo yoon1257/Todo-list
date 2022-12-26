@@ -3,13 +3,28 @@ import styled from "styled-components";
 import { BsFillPencilFill } from "react-icons/bs";
 import { BsFillTrashFill } from "react-icons/bs";
 import { main } from "../styles/theme";
+import { ITodoTypes } from "../atom";
+import { SetterOrUpdater } from "recoil";
 
-const TodoListItem = () => {
+interface TodoListItemProps {
+  id: number;
+  contents: string;
+  isCompleted: boolean;
+  todos: ITodoTypes[];
+  setTodos: SetterOrUpdater<ITodoTypes[]>;
+}
+const TodoListItem: React.FC<TodoListItemProps> = ({
+  id,
+  contents,
+  isCompleted,
+  todos,
+  setTodos,
+}) => {
   return (
     <TodoListItemContainer>
       <div>
         <input type="checkbox" />
-        <span>유진이 밥주기</span>
+        <span>{contents}</span>
       </div>
       <div>
         <button>

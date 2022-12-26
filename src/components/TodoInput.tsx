@@ -1,17 +1,55 @@
-import React from "react";
+import React, { ChangeEvent, useCallback, KeyboardEvent } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { inputState, ITodoTypes, todoState } from "../atom";
 import { main } from "../styles/theme";
 
-const TodoInput = () => {
+const TodoInput: React.FC = () => {
+  const [contents, setContents] = useRecoilState(inputState);
+  const [todos, setTodos] = useRecoilState<ITodoTypes[]>(todoState);
+
+  const onAdd = useCallback((): void => {
+    if (!contents.trim()) {
+      return;
+    }
+    const nextId: number =
+      todos.length > 0 ? todos[todos.length - 1].id + 1 : 0;
+
+    const todo: ITodoTypes = {
+      id: nextId,
+      contents,
+      isCompleted: false,
+    };
+    setTodos([...todos, todo]);
+
+    setContents("");
+  }, [contents, setContents, setTodos, todos]);
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setContents(e.target.value);
+  };
+
+  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key === "Enter") {
+      onAdd();
+    }
+  };
+
   return (
     <TodoInputContainer>
-      <input type="text" placeholder="할일을 입력해주세요" />
-      <button>+</button>
+      <input
+        type="text"
+        placeholder="할일을 입력해주세요"
+        value={contents}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
+      />
+      <button onClick={onAdd}>+</button>
     </TodoInputContainer>
   );
 };
 
-const TodoInputContainer = styled.form`
+const TodoInputContainer = styled.div`
   border-bottom: 1px solid ${main};
   padding: 15px;
   width: 100%;

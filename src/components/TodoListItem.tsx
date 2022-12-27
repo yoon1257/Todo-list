@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { BsFillPencilFill } from "react-icons/bs";
 import { BsFillTrashFill } from "react-icons/bs";
 import { main } from "../styles/theme";
 import { ITodoTypes } from "../atom";
 import { SetterOrUpdater } from "recoil";
+import TodoModal from "./TodoModal";
 
 interface TodoListItemProps {
   id: number;
@@ -24,6 +25,26 @@ const TodoListItem: React.FC<TodoListItemProps> = ({
   onDelete,
   onComplete,
 }) => {
+  const [isModal, setIsModal] = useState<boolean>(false);
+  const [modifyContents, setModifyContents] = useState<string>("");
+
+  const onModify = (): void => {
+    setIsModal(true);
+    setModifyContents(contents);
+  };
+
+  const modifyTodo = useCallback((): void => {
+    if (!modifyContents.trim()) {
+      return;
+    }
+    setTodos(
+      todos.map((todo: ITodoTypes) => {
+        return todo.id === id ? { ...todo, contents: modifyContents } : todo;
+      })
+    );
+    setIsModal(false);
+  }, [id, modifyContents, setTodos, todos]);
+
   return (
     <TodoListItemContainer>
       <div>
@@ -39,7 +60,7 @@ const TodoListItem: React.FC<TodoListItemProps> = ({
       </div>
       <div>
         <button>
-          <BsFillPencilFill />
+          <BsFillPencilFill onClick={onModify} />
         </button>
         <button>
           <BsFillTrashFill
@@ -49,6 +70,14 @@ const TodoListItem: React.FC<TodoListItemProps> = ({
           />
         </button>
       </div>
+      {isModal && (
+        <TodoModal
+          setIsModal={setIsModal}
+          modifyContents={modifyContents}
+          setModifyContents={setModifyContents}
+          onModify={onModify}
+        />
+      )}
     </TodoListItemContainer>
   );
 };

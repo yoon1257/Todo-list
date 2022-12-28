@@ -10,6 +10,7 @@ const TodoInput: React.FC = () => {
 
   const onAdd = useCallback((): void => {
     if (!contents.trim()) {
+      alert("할일을 입력해주세요");
       return;
     } // 빈값을 넣는 것을 막는 것
     const nextId: number =
@@ -25,7 +26,7 @@ const TodoInput: React.FC = () => {
     setContents("");
   }, [contents, setContents, setTodos, todos]);
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setContents(e.target.value);
   };
 

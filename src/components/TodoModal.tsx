@@ -1,33 +1,47 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import { BsFillPencilFill } from "react-icons/bs";
+import { AiOutlineClose } from "react-icons/ai";
 import { main } from "../styles/theme";
 
 interface TodoModalProps {
   setIsModal: Dispatch<SetStateAction<boolean>>;
   modifyContents: string;
   setModifyContents: Dispatch<SetStateAction<string>>;
-  onModify: () => void;
+  modifyTodo: () => void;
 }
 const TodoModal: React.FC<TodoModalProps> = ({
   setIsModal,
   modifyContents,
-  onModify,
+  modifyTodo,
   setModifyContents,
 }) => {
   const onCloseModal = (): void => {
     setIsModal(false);
   };
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setModifyContents(e.target.value);
+  };
   return (
-    <TodoModalContainer onClick={onCloseModal}>
-      <div className="modal">
-        <div className="title">
-          <h3>Todo 수정하기</h3>
-          <BsFillPencilFill />
-        </div>
-        <div className="contents">
-          <input type="text" placeholder="수정할 내용을 입력해주세요" />
-          <button>수정하기</button>
+    <TodoModalContainer>
+      <div>
+        <div className="modal">
+          <div className="title">
+            <h3>Todo 수정하기</h3>
+            <BsFillPencilFill />
+          </div>
+          <div className="close-btn" onClick={onCloseModal}>
+            <AiOutlineClose />
+          </div>
+          <div className="contents">
+            <input
+              type="text"
+              placeholder="수정할 내용을 입력해주세요"
+              value={modifyContents}
+              onChange={onChange}
+            />
+            <button onClick={modifyTodo}>수정하기</button>
+          </div>
         </div>
       </div>
     </TodoModalContainer>
@@ -49,15 +63,11 @@ const TodoModalContainer = styled.div`
     height: 40%;
     background-color: white;
     border-radius: 10px;
-    overflow-x: hidden;
-    overflow-y: auto;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 3;
     display: flex;
-    display: -webkit-flex;
     flex-direction: column;
     align-items: center;
 
@@ -94,6 +104,12 @@ const TodoModalContainer = styled.div`
           cursor: pointer;
         }
       }
+    }
+    .close-btn {
+      position: relative;
+      top: -30px;
+      right: -190px;
+      cursor: pointer;
     }
   }
 `;

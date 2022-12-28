@@ -75,7 +75,7 @@ const TodoListItem: React.FC<TodoListItemProps> = ({
           setIsModal={setIsModal}
           modifyContents={modifyContents}
           setModifyContents={setModifyContents}
-          onModify={onModify}
+          modifyTodo={modifyTodo}
         />
       )}
     </TodoListItemContainer>

@@ -22,6 +22,12 @@ const TodoModal: React.FC<TodoModalProps> = ({
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setModifyContents(e.target.value);
   };
+
+  const onKeyPress = (e: any) => {
+    if (e.key === "Enter") {
+      modifyTodo();
+    }
+  };
   return (
     <TodoModalContainer>
       <div>
@@ -39,6 +45,7 @@ const TodoModal: React.FC<TodoModalProps> = ({
               placeholder="수정할 내용을 입력해주세요"
               value={modifyContents}
               onChange={onChange}
+              onKeyPress={onKeyPress}
             />
             <button onClick={modifyTodo}>수정하기</button>
           </div>

@@ -8,13 +8,13 @@ import { SetterOrUpdater } from "recoil";
 import TodoModal from "./TodoModal";
 
 interface TodoListItemProps {
-  id: number;
+  id: string;
   contents: string;
   isCompleted: boolean;
   todos: ITodoTypes[];
   setTodos: SetterOrUpdater<ITodoTypes[]>;
-  onDelete: (id: number) => void;
-  onComplete: (id: number) => void;
+  onDelete: (id: string) => void;
+  onComplete: (id: string) => void;
 }
 const TodoListItem: React.FC<TodoListItemProps> = ({
   id,

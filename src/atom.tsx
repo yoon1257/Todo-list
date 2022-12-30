@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
 export interface ITodoTypes {
-  id: number;
+  id: string;
   contents: string;
   isCompleted: boolean;
 }

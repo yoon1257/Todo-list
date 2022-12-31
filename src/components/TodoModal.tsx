@@ -1,4 +1,9 @@
-import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
+import React, {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  KeyboardEvent,
+} from "react";
 import styled from "styled-components";
 import { BsFillPencilFill } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
@@ -23,7 +28,7 @@ const TodoModal: React.FC<TodoModalProps> = ({
     setModifyContents(e.target.value);
   };
 
-  const onKeyPress = (e: any) => {
+  const onKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       modifyTodo();
     }

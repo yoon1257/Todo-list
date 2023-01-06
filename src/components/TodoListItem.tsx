@@ -55,19 +55,20 @@ const TodoListItem: React.FC<TodoListItemProps> = ({
             onComplete(id);
           }}
         >
-          {contents}
+          <input type="checkbox" />
+          <span>{contents}</span>
         </div>
       </div>
       <div>
-        <button>
-          <BsFillPencilFill onClick={onModify} />
+        <button onClick={onModify}>
+          <BsFillPencilFill />
         </button>
-        <button>
-          <BsFillTrashFill
-            onClick={() => {
-              onDelete(id);
-            }}
-          />
+        <button
+          onClick={() => {
+            onDelete(id);
+          }}
+        >
+          <BsFillTrashFill />
         </button>
       </div>
       {isModal && (

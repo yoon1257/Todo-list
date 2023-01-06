@@ -35,4 +35,5 @@ const HomeContainer = styled.div`
     }
   }
 `;
+
 export default Home;

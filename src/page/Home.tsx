@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Clock from "../components/Clock";
 import TodoInput from "../components/TodoInput";
 import TodoList from "../components/TodoList";
 import { main } from "../styles/theme";
@@ -8,7 +9,12 @@ const Home = () => {
   return (
     <HomeContainer>
       <div className="entireContainer">
-        <h1>TodoList</h1>
+        <div>
+          <h1>TodoList </h1>
+          <h5>
+            <Clock />
+          </h5>
+        </div>
         <TodoInput />
         <TodoList />
       </div>
@@ -32,6 +38,11 @@ const HomeContainer = styled.div`
       color: #fff;
       text-align: center;
       padding: 10px;
+    }
+    h5 {
+      background-color: ${main};
+      text-align: right;
+      color: #fff;
     }
   }
 `;
